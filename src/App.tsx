@@ -1,12 +1,24 @@
 import './App.css';
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
+
+import CsvUploader from './components/CsvUploader';
 import Map from './components/Map';
+
 
 function App() {
 
   return (
-    <div>
-      <Map />
+    <MantineProvider>
+    <div className='bg'>
+      <div className='container'>
+        <div className='inner'>
+          <Map />
+          <CsvUploader />
+        </div>
+      </div>
     </div>
+    </MantineProvider>
   )
 }
 

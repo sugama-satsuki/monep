@@ -23,7 +23,7 @@ const Map: React.FC = () => {
         if (!mapContainer.current) return;
 
         // MapLibreのインスタンスを作成
-        const map = new maplibregl.Map({
+        const map = new window.geolonia.Map({
             container: mapContainer.current, // 地図を描画するコンテナ
             style: "https://geoloniamaps.github.io/basic-v1/style.json", // スタイルURL
             center: [139.6917, 35.6895], // 初期の中心座標（東京）
