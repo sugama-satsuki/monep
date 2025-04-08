@@ -45,13 +45,12 @@ function DropzoneButton() {
             </Group>
 
             <Text ta="center" fw={700} fz="lg" mt="xl">
-              <Dropzone.Accept>Drop files here</Dropzone.Accept>
-              <Dropzone.Reject>Only CSV files less than 30MB</Dropzone.Reject>
-              <Dropzone.Idle>Upload your CSV file</Dropzone.Idle>
+                <Dropzone.Accept>ここにファイルをドロップしてください</Dropzone.Accept>
+                <Dropzone.Reject>30MB以下のCSVファイルのみアップロード可能です</Dropzone.Reject>
+                <Dropzone.Idle>CSVファイルをアップロードしてください</Dropzone.Idle>
             </Text>
             <Text ta="center" fz="sm" mt="xs" c="dimmed">
-              Drag&apos;n&apos;drop files here to upload. We can accept only <i>.csv</i> files that
-              are less than 30MB in size.
+                ファイルをドラッグ＆ドロップするか、クリックしてアップロードしてください。30MB以下の<i>.csv</i>ファイルのみ対応しています。
             </Text>
           </div>
         </Dropzone>
