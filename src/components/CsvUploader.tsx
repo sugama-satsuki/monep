@@ -1,14 +1,46 @@
 import { useRef, useState } from 'react';
 import { IconFileUpload, IconCloudUpload, IconDownload, IconX } from '@tabler/icons-react';
-import { ActionIcon, Group, Text, useMantineTheme } from '@mantine/core';
+import { ActionIcon, Group, Loader, Text, useMantineTheme } from '@mantine/core';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import classes from './CsvUploader.module.css';
+import { useCsvData } from '../hooks/useCsvData';
 
 
 function DropzoneButton() {
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
   const [isDropzoneVisible, setDropzoneVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setCsvData } = useCsvData();
+
+  const handleCsvUpload = (files: File[]) => {
+    const file = files[0];
+    if (!file) return;
+
+    setIsLoading(true);
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      const parsedData = parseCsv(text);
+      setCsvData(parsedData);
+      setIsLoading(false);
+    };
+
+    reader.onerror = () => {
+      console.error('CSVファイルの読み込みに失敗しました');
+      setIsLoading(false);
+    };
+
+    reader.readAsText(file);
+  };
+
+  const parseCsv = (text: string): string[][] => {
+    const rows = text.split('\n');
+    return rows.map((row) => row.split(',').map((cell) => cell.trim()));
+  };
+
 
   return (
     <div className={classes.wrapper}>
@@ -25,7 +57,7 @@ function DropzoneButton() {
       {isDropzoneVisible && (
         <Dropzone
           openRef={openRef}
-          onDrop={() => {}}
+          onDrop={handleCsvUpload}
           className={classes.dropzone}
           radius="md"
           accept={[MIME_TYPES.csv]}
@@ -54,6 +86,14 @@ function DropzoneButton() {
             </Text>
           </div>
         </Dropzone>
+      )}
+
+      {/* ローディング中の表示 */}
+      {isLoading && (
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <Loader color="cyan" type="dots" />
+          <Text mt="sm">ファイルを読み込んでいます...</Text>
+        </div>
       )}
     </div>
   );

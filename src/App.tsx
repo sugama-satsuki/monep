@@ -4,6 +4,7 @@ import '@mantine/core/styles.css';
 
 import CsvUploader from './components/CsvUploader';
 import Map from './components/Map';
+import BottomSheet from './components/BottomSheet';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <div className='inner'>
           <Map />
           <CsvUploader />
+          <BottomSheet />
         </div>
       </div>
     </div>
